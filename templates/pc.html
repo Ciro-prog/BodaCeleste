@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Imagen</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(246,231,226,1) 100%);
+            overflow: hidden;
+        }
+
+        .centered-image {
+            max-width: auto;
+            max-height: 70%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-size: 2em;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay-text">
+        Abre tu teléfono para disfrutar esta app
+    </div>
+    <img src="../static/images/fondo-pc.png" alt="Imagen centrada" class="centered-image">
+</body>
+</html>

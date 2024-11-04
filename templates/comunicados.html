@@ -1,0 +1,236 @@
+
+<div class="container-fluid mt-4">
+    <h2 class="text-white">Noticias</h2>
+    <button class="btn btn-primary mb-3 float-end" onclick="showAddModal()">
+        <span class="material-symbols-outlined float-start" style="margin-right: .5rem;">note_stack_add</span> Agregar Comunicado
+    </button>
+    <table class="table  table-dark table-hover">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="comunicadosList">
+            <!-- Los comunicados se cargarán aquí via AJAX -->
+        </tbody>
+    </table>
+    <div id="noComunicados" class="alert alert-warning text-center" style="display: none;">Carga una noticia para tus invitados :)</div>
+</div>
+
+<!-- Modal para Agregar/Editar Comunicado -->
+<div class="modal fade" id="comunicadoModal" tabindex="-1" aria-labelledby="comunicadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="comunicadoModalLabel">Agregar/Editar Comunicado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="comunicadoForm">
+                    <input type="hidden" id="comunicadoId">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
+                        <input type="text" class="form-control" id="titulo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contenido" class="form-label">Contenido</label>
+                        <textarea class="form-control" id="contenido" required></textarea>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="estado">
+                        <label class="form-check-label" for="estado">Finalizado</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary  float-end" style="margin-top:2rem">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal para Visualizar Comunicado -->
+<div class="modal fade" id="viewComunicadoModal" tabindex="-1" aria-labelledby="viewComunicadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="viewComunicadoModalLabel">Visualizar Comunicado</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p id="viewComunicadoContent"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript">
+
+    function viewComunicado(id, titulo, contenido) {
+    $('#viewComunicadoModalLabel').text(titulo); // Set the title for the modal
+    $('#viewComunicadoContent').html(decodeURIComponent(contenido)); // Decode and set the content
+    $('#viewComunicadoModal').modal('show'); // Show the modal
+}
+
+CKEDITOR.replace('contenido', {
+    // Asegúrate de excluir 'exportpdf' de la lista de plugins extra o deshabilitarlo explícitamente
+    removePlugins:'exportpdf',
+    removeButtons: 'Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Save,NewPage,Preview,Print,Flash,Iframe,PageBreak,CreateDiv,Source'
+});
+
+loadComunicados();
+$('#comunicadoForm').submit(function(e) {
+        e.preventDefault();
+        saveComunicado();
+    });
+
+function loadComunicados() {
+    $.ajax({
+        url: '/comunicados',
+        type: 'GET',
+        success: function(comunicados) {
+            const list = $('#comunicadosList');
+            list.empty();
+            if (comunicados.length > 0) {
+                comunicados.forEach(function(comunicado) {
+                    list.append(`
+                        <tr>
+                            <td>${comunicado.titulo}</td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="estado-${comunicado.id}" ${comunicado.estado === 'finalizado' ? 'checked' : ''} onclick="toggleEstado('${comunicado.id}')">
+                                    <label class="form-check-label">${comunicado.estado === 'finalizado' ? '(Actualmente Finalizado)' : '(Actualmente Visible)'}</label>
+                                </div>
+                            </td>
+                            <td>
+                                <button onclick="viewComunicado('${comunicado.id}', '${comunicado.titulo.replace(/'/g, "\\'")}', '${encodeURIComponent(comunicado.contenido)}')" class="btn btn-primary">Ver</button>
+                                <button onclick="editComunicado('${comunicado.id}')" class="btn btn-success">Editar</button>
+                                <button onclick="deleteComunicado('${comunicado.id}')" class="btn btn-danger">Eliminar</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+                $('#noComunicados').hide(); // Ocultar el mensaje si hay comunicados
+            } else {
+                $('#noComunicados').show(); // Mostrar el mensaje si no hay comunicados
+            }
+        }
+    });
+}
+
+
+
+function showAddModal() {
+    $('#comunicadoId').val('');
+    $('#titulo').val('');
+    $('#contenido').val('');
+    CKEDITOR.instances.contenido.setData('');
+    $('#estado').prop('checked', false);
+    $('#comunicadoModal').modal('show');
+}
+
+function saveComunicado() {
+    var id = $('#comunicadoId').val();
+    var titulo = $('#titulo').val();
+    var contenido = CKEDITOR.instances.contenido.getData(); // Obtener el contenido del CKEditor
+    var estado = $('#estado').is(':checked') ? 'finalizado' : 'activo';
+
+    var comunicadoData = {
+        titulo: titulo,
+        contenido: contenido,
+        estado: estado
+    };
+
+    $.ajax({
+        url: id ? `/comunicados/${id}` : '/comunicados',
+        type: id ? 'PUT' : 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(comunicadoData),
+        success: function(result) {
+            Swal.fire({
+                title: 'Éxito!',
+                text: 'El comunicado ha sido actualizado correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+            $('#comunicadoModal').modal('hide');
+            loadComunicados();
+        },
+        error: function(error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Hubo un problema al guardar el comunicado.',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            console.error('Error al guardar el comunicado:', error);
+        }
+    });
+}
+
+
+
+function editComunicado(id) {
+    $.ajax({
+        url: `/comunicados/${id}`,
+        type: 'GET',
+        success: function(comunicado) {
+            $('#comunicadoId').val(id);
+            $('#titulo').val(comunicado.titulo);
+            CKEDITOR.instances.contenido.setData(comunicado.contenido);  // Actualizar CKEditor con el contenido
+            $('#estado').prop('checked', comunicado.estado === 'finalizado');
+            $('#comunicadoModal').modal('show');
+        },
+        error: function(error) {
+            console.error('Error al cargar el comunicado para editar:', error);
+        }
+    });
+}
+
+
+
+
+function deleteComunicado(id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "No podrás revertir esto!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, eliminar!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: `/comunicados/${id}`,
+                type: 'DELETE',
+                success: function(result) {
+                    Swal.fire(
+                        'Eliminado!',
+                        'El comunicado ha sido eliminado.',
+                        'success'
+                    );
+                    loadComunicados();
+                }
+            });
+        }
+    });
+}
+
+function toggleEstado(id) {
+    var estado = $(`#estado-${id}`).is(':checked') ? 'finalizado' : 'activo';
+    $.ajax({
+        url: `/comunicados/${id}`,
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({ estado: estado }),
+        success: function(result) {
+            loadComunicados();  // Recargar lista para reflejar cambios
+        },
+        error: function(error) {
+            console.error('Error al cambiar el estado del comunicado:', error);
+            loadComunicados();  // Recargar lista si hay un error para asegurar consistencia
+        }
+    });
+}
+</script>

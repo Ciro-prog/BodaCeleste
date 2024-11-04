@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C&E - Casamiento</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+<script type="text/javascript">
+    // Redirección rápida basada en el userAgent
+        (function() {
+            if (!/Mobi|Tablet|iPad|Android/i.test(navigator.userAgent)) {
+                // El usuario está usando una PC
+                window.location.href = "/pc";
+            }
+        })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="google" content="notranslate">
+    <style>
+        .no-select {
+                -webkit-user-select: none;  /* Chrome, Safari, Opera */
+                -moz-user-select: none;     /* Firefox */
+                -ms-user-select: none;      /* Internet Explorer/Edge */
+                user-select: none;          /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+            }
+
+        body {
+            background-image: url('/static/images/fondo-cele-home.png');
+            background-size: 100% 100%; /* Estira la imagen para cubrir el ancho y alto completos */
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* Opcional, para que la imagen no se desplace con el contenido */
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Evita desbordamientos accidentales */
+        }
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background-color: #9f2c33;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            display: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: bounce 1s ease;
+            width: auto !important;
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(208, 134, 134) transparent transparent transparent;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-15px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #9f2c33;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #f8f8f8;
+        }
+        .frase{
+            font-family: "Vidaloka", serif;
+              font-weight: 400;
+              font-style: italic;
+            color: #5A574B;
+        }
+        #div-contenido-noticia {
+            height: 50vh; /* Ajusta la altura según tus necesidades */
+            overflow-y: auto !important; /* Habilita el desplazamiento vertical cuando sea necesario */
+            overflow-x: hidden; /* Oculta el desplazamiento horizontal */
+            text-align: left;
+        }
+
+        #scroll-indicator {
+            position: absolute;
+            right: 10px;
+            top: 14vh;
+            font-size: 24px;
+            color: #9f2c33; /* ajusta el color según tu tema */
+            animation: bounceVertical 1.5s infinite;
+            display: none; /* oculto por defecto */
+        }
+
+        #scroll-indicator-eventInfo {
+            position: absolute;
+            right: 10px;
+            top: 14vh;
+            font-size: 24px;
+            color: #9f2c33; /* ajusta el color según tu tema */
+            animation: bounceVertical 1.5s infinite;
+            display: none; /* oculto por defecto */
+        }
+
+        @keyframes bounceVertical {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        /* Estilo para el backdrop personalizado */
+        .body-backdrop-active::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+            z-index: 1050; /* Asegúrate que esto esté por debajo de tu modal pero por encima de otros elementos */
+            display: none; /* Oculto por defecto */
+        }
+
+        /* Mostrar el backdrop cuando se añade la clase activa al body */
+        .body-backdrop-active::before {
+            display: block;
+        }
+
+    /* Estilo para el spinner de carga */
+    #loadingSpinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, .95);
+        z-index: 2000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+        border: 6px solid #f3f3f3; /* Light grey */
+        border-top: 6px solid #9f2c33; 
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    .image-loading-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.90); /* Fondo semi-transparente */
+    backdrop-filter: blur(40px); /* Efecto difuminado */
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Para evitar desbordamiento de las líneas fuera del div */
+}
+
+@keyframes slide {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.line {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to right, transparent, rgba(254, 73, 73, 0.8), transparent);
+    animation: slide 3s infinite;
+}
+.landscape-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.99);
+            color: white;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .landscape-overlay .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+        }
+
+        .landscape-overlay .icon {
+            font-size: 3em;
+            animation: rotate-icon 1s infinite alternate;
+        }
+
+        @keyframes rotate-icon {
+            from { transform: rotate(0); }
+            to { transform: rotate(90deg); }
+        }
+        .my-confirm-button-class {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.my-deny-button-class {
+    border-color: #9f2c33; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(208, 134, 134, 0.575); /* Añade una sombra de color rojo */
+    color: #ff7070;
+   
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+#nameSearch:focus {
+    outline: none; /* Elimina el borde por defecto */
+    border-color: #9f2c33; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(208, 134, 134, 0.575); /* Añade una sombra de color rojo */
+}
+#confirmButton{
+    border-color: #9f2c33; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(208, 134, 134, 0.575); /* Añade una sombra de color rojo */
+    color: #a53d3d;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+#confirmButton:focus {
+    outline: none; /* Elimina el borde por defecto */
+    border-color: #9f2c33; /* Cambia el color del borde al enfocar */
+    box-shadow: 0 0 5px rgba(208, 134, 134, 0.575); /* Añade una sombra de color rojo */
+}
+#cancelButton{
+    border: 2px solid #9f2c33;
+    color: #fff;
+    background-color: #a53d3d;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+
+
+</style>
+</head>
+<body style="overflow: hidden;" class="bg-black">
+
+    <div id="landscape-overlay" class="landscape-overlay">
+        <div class="message">
+            <i class="material-icons no-select icon">screen_rotation</i>
+            <p>Por favor regresa el teléfono a su posición vertical</p>
+        </div>
+    </div>
+         <!-- Spinner de Carga -->
+        <div id="loadingSpinner">
+            <div class="loader"></div>
+        </div>
+
+    <div id="textoAnimado" style="position: fixed; top: 25%; left: 50%; transform: translate(-50%, -50%);  color: black; padding: 1rem; border-radius: 10px; font-size: 1.5rem; text-align: center; width: 90%;">
+        <div class="frase">
+          
+        </div>
+</div>
+        <!-- Modal -->
+        <div class="modal fade" id="donationModal" tabindex="-1" aria-labelledby="donationModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="donationModalLabel">Transferir dinero <i class="material-symbols-outlined no-select " style="margin-top:.2rem;margin-left:.5rem; position: absolute;">sentiment_very_satisfied</i></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Cerrar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal para Información del Evento -->
+        <div class="modal fade" id="eventInfoModal" tabindex="-1" aria-labelledby="eventInfoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content modal-bg">
+                    <div class="cmodal-body" style="height: 68vh; width: auto; overflow: auto; " id="bodyEventInfoModal">
+                        <img src="../static/images/informacion-3.png" style="width: 100%; padding-right: 5px; object-fit: scale-down;" alt="Información del evento">
+                    </div>
+                    <span id="scroll-indicator-eventInfo" class="material-symbols-outlined no-select" style="position: absolute; right: 3px; bottom: 10px; font-size: 24px; display: none; cursor: pointer;">south</span>
+                     <div class="modal-footer" >
+                        <button type="button" class="btn btn-secondary" style="background: #9f2c33; color: #fff;" data-bs-dismiss="modal" >Cerrar</button>
+                      </div>
+                    <!-- <div class="modal-header">
+                        <h1 class="modal-title" id="eventInfoModalLabel">Info del Evento</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="height: 68vh; overflow: auto; " id="bodyEventInfoModal">
+                         El contenido se cargará dinámicamente 
+                    </div>
+                       -->
+                </div>
+            </div>
+        </div>
+
+   
+        <!-- Modal de Confirmación de Asistencia -->
+        <div class="modal fade modal-confirm" id="confirmAttendanceModal" tab   index="-1" aria-labelledby="confirmAttendanceModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background: url('../static/images/fondo3.webp'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                    <div class="modal-header" style="width: auto; display: flex;">
+                        <h5 class="modal-title" id="confirmAttendanceModalLabel" style="width: 90%; text-align: center;" >Confirmar Asistencia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="tooltipAR();"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control" id="nameSearch" placeholder="Escribe tu nombre..." aria-describedby="nameHelp" oninput="searchName()">
+                        <ul id="searchResults" class="list-group mt-2"></ul>
+                        <!-- Parte del Modal donde se muestra la alerta -->
+                        <div id="notFoundAlert" class="alert alert-warning mt-2" style="display: none; background: #9f2c33; ">
+                            <span style="color: #fff; text-align: center;">¿No estás en la lista? ¡Avísanos!</span>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button id="confirmButton" type="button" class="btn" style="display:none;" onclick="confirmAttendance()">Confirmar Asistencia</button>
+                        <button id="cancelButton" type="button" class="btn" style="display:none;" onclick="cancelAttendance()">Cancelar Asistencia</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- MENU -->
+    <div class="card" style="position: fixed; bottom: 0px; padding: 1rem; width: 100%;">
+        <div class="row" style="justify-content: space-evenly;">
+            <div class="col-2 d-flex justify-content-center" style="text-align: center;" id="infoEvent" data-bs-toggle="modal" data-bs-target="#eventInfoModal">
+                <div style="position: relative; width: 50px; height: 50px; display: flex; justify-content: center; padding-top:.7rem;">
+                    <span class="material-symbols-outlined no-select" style="font-size: 1.7rem; color:#9f2c33;">person_celebrate</span>
+                    <div class="tooltip" style="width:4.3rem !important;">Busca info sobre el evento.
+                        <div class="tooltip-arrow"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 d-flex justify-content-center" style="text-align: center;" id="locationButton" onclick="showLocation()">
+                <div style="position: relative; width: 50px; height: 50px; display: flex; justify-content: center; padding-top:.7rem">
+                    <span class="material-symbols-outlined no-select" style="font-size: 1.7rem; color:#9f2c33">pin_drop</span>
+                    <div class="tooltip">Ubicaciones<div class="tooltip-arrow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 d-flex justify-content-center" style="text-align: center;" onclick="showGifts()"> <!-- data-bs-toggle="modal" data-bs-target="#donationModal" -->
+            <div style="position: relative; width: 50px; height: 50px;display: flex;justify-content: center; padding-top:.7rem">
+                <span class="material-symbols-outlined no-select" style="font-size: 1.7rem; color:#9f2c33">featured_seasonal_and_gifts</span>
+                <div class="tooltip" style="width:7.2rem !important">Lista de regalos</div><div class="tooltip-arrow"></div>
+            </div>
+        </div>
+        <div class="col-2 d-flex justify-content-center" style="text-align: center;" id="galery" onclick="showGallery()">
+            <div style="position: relative; width: 50px; height: 50px; display: flex; justify-content: center; padding-top:.7rem">
+                <span class="material-symbols-outlined no-select" style="font-size: 1.7rem; color:#9f2c33">photo_library</span>
+                <div class="tooltip" style="width:5rem !important; text-align: center;">Galeria</div><div class="tooltip-arrow"></div>
+            </div>
+        </div>
+    <!--         <div class="col-2 d-flex justify-content-center" style="text-align: center;" id="locationButtonIglesia">
+                <div style="position: relative; width: 50px; height: 50px;display:flex;justify-content: center; padding-top:.7rem">
+                    <span class="material-symbols-outlined no-select" style="font-size: 1.7rem; color:#9f2c33">church</span>
+                    <div class="tooltip" style="width:6rem !important">Abrí la Ubicacion de la iglesia
+                        <div class="tooltip-arrow"></div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-2 d-flex justify-content-center" style="text-align: center; cursor: pointer;" id="uploadTrigger">
+                <div style="position: relative;background-color:#9f2c33; width: 45px; height: 45px; border-radius: 10%; display: flex; justify-content: center; align-items: center;box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;">
+                    <span class="material-symbols-outlined no-select" style="font-size: 1.5rem; color: white;">add_a_photo</span>
+                    <div class="tooltip">Subí tu foto al evento!
+                        <div class="tooltip-arrow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   <!-- Input para seleccionar la imagen -->
+    <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    <!-- Modal de Previsualización -->
+     <div id="previewModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1050; justify-content: center; align-items: center;">
+        <div style="position: relative; padding: 20px; max-width: 90%; max-height: 90%; width: auto; height: auto;">
+           <center><img id="preview" src="#" alt="Image Preview" style="width: auto; height: 50vh !important; border-radius: 8px;max-width: 70vw;"></center> 
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-sm btn-secondary" onclick="closePreview()" style="display:inline-flex;">Cerrar</button>
+                    <button class="btn btn-sm btn-secondary" onclick="retryUpload()" style="display:inline-flex;">Tomar otra foto</button>
+                <button class="btn btn-sm btn-danger"  onclick="submitImage()">Subir</button>
+                <span style="position:fixed; color:white; top:5vh; width:70%; font-size: .8rem;">
+                   <center>Nota: Esta es una previsualización. Al subirse, la imagen conservará su aspecto original.</center> 
+                </span>
+            </div>        
+        </div>
+    </div>
+
+    <!-- Spinner y texto de progreso -->
+    <div id="loadingSpinner" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.5); z-index: 1051; justify-content: center; align-items: center;">
+        <div class="loader"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    window.onload = function() {
+        var loader = document.getElementById('loadingSpinner');
+        if(loader) {
+            loader.style.display = 'none';
+        }
+    }
+});
+
+function showGallery() {
+     window.location.href = '/galery';
+}
+function showGifts(){
+    window.location.href = '/regalos';
+}
+function showLocation(){
+    window.location.href = '/ubicacion';
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const backtoGalery = urlParams.get('backtoGalery');
+
+        if (!backtoGalery) {
+        loadNoticias().then(() => {
+            confirmarAsistenciaPrompt(); // Mover el prompt original aquí para que se ejecute después de las noticias
+            // Redirigir a la galería y luego eliminar el parámetro de la URL
+            
+        });
+    }else{
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
+function loadNoticias() {
+    return fetch('/api/comunicados_api') // Ajusta esta URL a la API que devuelve las noticias
+        .then(response => response.json())
+        .then(comunicados => {
+            let noticiasVisibles = comunicados.filter(noticia => noticia.estado === 'activo');
+            return mostrarNoticias(noticiasVisibles);
+        });
+}
+
+function mostrarNoticias(noticias) {
+    let promise = Promise.resolve(); // Inicia una promesa resuelta para comenzar la cadena
+    noticias.forEach(noticia => {
+        promise = promise.then(() => {
+            const contenidoConDivTitle = `<div style="text-align: left;"><h1>${noticia.titulo}</h1></div>`;
+            const contenidoConDiv = `<hr><div id="div-contenido-noticia">${noticia.contenido}</div><hr><span id="scroll-indicator" class="material-symbols-outlined no-select" style="position: absolute; right: 3px; bottom: 10px; font-size: 24px; display: none; cursor: pointer;">south</span>`;
+            document.body.classList.add('body-backdrop-active'); // Activa el backdrop personalizados
+            return Swal.fire({
+                title: contenidoConDivTitle,
+                html: contenidoConDiv,
+                confirmButtonText: '¡He Leído!',
+                backdrop: false,
+                didOpen: () => {
+                    Swal.getConfirmButton().disabled = true; // Deshabilitar el botón inicialmente
+                    checkContentHeight();
+
+                },
+                 willClose: () => {
+                    document.body.classList.remove('body-backdrop-active'); // Remueve el backdrop cuando se cierre el alerta
+                }
+            });
+        });
+    });
+    return promise;
+}
+
+function checkContentHeight() {
+    const contentDiv = document.getElementById('div-contenido-noticia');
+    if (contentDiv.scrollHeight > contentDiv.clientHeight) {
+        document.getElementById('scroll-indicator').style.display = 'block';
+        Swal.getConfirmButton().disabled = true; // Mantener el botón deshabilitado inicialmente si es necesario hacer scroll
+    } else {
+        document.getElementById('scroll-indicator').style.display = 'none';
+        Swal.getConfirmButton().disabled = false; // Habilitar el botón si no es necesario hacer scroll
+    }
+
+    contentDiv.addEventListener('scroll', () => {
+        const scrollHeight = contentDiv.scrollHeight;
+        const scrollPosition = contentDiv.scrollTop + contentDiv.clientHeight;
+        const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+
+        
+        if (scrollPercentage >= 99) {
+            document.getElementById('scroll-indicator').style.display = 'none';
+            Swal.getConfirmButton().disabled = false; // Habilitar el botón cuando el scroll supere el 99%
+        } else {
+            document.getElementById('scroll-indicator').style.display = 'block';
+
+        }
+    });
+}
+
+
+
+
+Swal.fire({
+    title: '¿Nos acompañas en esta aventura?',
+    showDenyButton: true,
+    denyButtonText: 'Confirmar ahora',
+    confirmButtonText: 'Confirmar despues',
+    confirmButtonColor: '#e7bebe',
+    denyButtonColor: '#9f2c33',
+    showCloseButton: true, // Habilita el botón de cierre
+    customClass: {
+        closeButton: 'custom-close-button' // Clase personalizada para el botón de cierre
+    },
+    didOpen: () => {
+        // Estilos para el botón de cierre
+        const closeButton = document.querySelector('.swal2-close');
+        closeButton.style.color = '#a53d3d';
+        closeButton.style.fontSize = '24px';
+        closeButton.style.fontWeight = 'bold';
+        closeButton.style.position = 'absolute';
+        closeButton.style.right = '10px';
+        closeButton.style.top = '10px';
+        closeButton.style.outline = 'none';
+        closeButton.style.border = 'none';
+        closeButton.style.background = 'transparent';
+        
+        // Estilos existentes
+        const confirmButton = Swal.getConfirmButton();
+        const denyButton = Swal.getDenyButton();
+        
+        confirmButton.style.border = '2px solid #e7bebe';
+        confirmButton.style.color = '#a53d3d';
+        confirmButton.style.borderRadius = '5px';
+        confirmButton.style.padding = '10px 20px';
+        confirmButton.style.fontSize = '16px';
+        
+        denyButton.style.border = '1px solid #9f2c33';
+        denyButton.style.color = '#fff';
+        denyButton.style.borderRadius = '5px';
+        denyButton.style.padding = '10px 20px';
+        denyButton.style.fontSize = '16px';
+        
+        const title = Swal.getTitle();
+        title.style.fontFamily = '"Montserrat", sans-serif';
+        title.style.fontSize = '22px';
+        title.style.margin = '0px 0px 10px 0';
+        title.style.fontStyle = 'normal';
+        title.style.backgroundImage = 'transparent';
+        title.style.color = '#a53d3d';
+        title.style.fontWeight = '700';
+        title.style.textTransform = 'uppercase';
+        
+        // Aplicar imagen de fondo al contenedor del modal
+        const modalContainer = document.querySelector('.swal2-popup');
+        modalContainer.style.background = 'url("../static/images/fondo3.webp")';
+        modalContainer.style.backgroundSize = 'cover';
+        modalContainer.style.backgroundPosition = 'center';
+        modalContainer.style.backgroundRepeat = 'no-repeat';
+        modalContainer.style.border = '3px solid #9f2c33';
+    }
+}).then((result) => {
+    if (result.isConfirmed) {
+        console.log('El usuario ya confirmó');
+        tooltipAR();
+    } else if (result.isDenied) {
+        $('#confirmAttendanceModal').modal('show');
+    } else {
+        tooltipAR();
+    }
+});
+
+window.addEventListener("load", function() {
+    setTimeout(function() {
+        window.scrollTo(0, 1);
+    }, 0);
+});
+
+
+
+ function tooltipAR() {
+    const tooltips = document.querySelectorAll('.tooltip');
+    const delays = [0, 3000, 6500, 9500,13000,16500]; // Delays para la aparición de cada tooltip
+
+    tooltips.forEach((tooltip, index) => {
+        setTimeout(() => {
+            tooltip.style.display = 'block';  // Hacer visible el tooltip
+            tooltip.style.opacity = 1;
+
+            setTimeout(() => {
+                tooltip.style.opacity = 0;
+                setTimeout(() => {
+                    tooltip.style.display = 'none';  // Ocultar el tooltip después de la transición
+                }, 500);  // Espera a que termine la transición de opacidad
+            }, 3000); // tiempo visible antes de empezar a desvanecer
+        }, delays[index]);
+    });
+}
+
+
+
+function showSpinner() {
+    document.getElementById('loadingSpinner').style.display = 'flex';
+}
+
+function hideSpinner() {
+    document.getElementById('loadingSpinner').style.display = 'none';
+}
+
+   document.getElementById('uploadTrigger').onclick = function() {
+            document.getElementById('fileInput').click();
+        };
+        document.getElementById('fileInput').onchange = function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').src = e.target.result;
+                    document.getElementById('previewModal').style.display = 'flex';
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+        }
+        function retryUpload() {
+            document.getElementById('fileInput').click();
+        }
+
+function submitImage() {
+    var fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        showSpinner();
+        uploadImage(file);
+    }
+}
+
+function uploadImage(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', '/upload', true);
+    xhr.upload.onprogress = function(e) {
+        if (e.lengthComputable) {
+            const percentComplete = Math.round((e.loaded / e.total) * 100);
+            console.log(percentComplete + '% uploaded');
+        }
+    };
+    xhr.onload = function() {
+         hideSpinner(); 
+        if (xhr.status === 200) {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Subido con éxito!',
+                text: 'Tu foto ha sido subida correctamente.'
+            });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al subir',
+                text: 'Hubo un problema al subir tu foto.'
+            });
+        }
+        document.getElementById('previewModal').style.display = 'none';
+    };
+    xhr.send(formData);
+}
+
+
+
+// Crear una variable fuera de la función para mantener la referencia al controller
+let controller = new AbortController();
+function searchName() {
+    const input = document.getElementById('nameSearch');
+    input.dataset.selectedId = ''; // Limpiar el ID seleccionado
+    document.getElementById('confirmButton').style.display = 'none'; // Ocultar botón de confirmación si se empieza a escribir de nuevo
+    const results = document.getElementById('searchResults');
+    const notFoundAlert = document.getElementById('notFoundAlert');
+
+     // Cancelar la solicitud previa si aún está en curso
+    controller.abort();
+    // Crear un nuevo controller para la nueva solicitud
+    controller = new AbortController();
+
+    results.innerHTML = ''; // Limpiar resultados anteriores
+    notFoundAlert.style.display = 'none'; // Ocultar alerta por defecto
+
+if (input.value.length > 1) { // Empezar a buscar desde 2 caracteres
+        fetch(`/api/invitados?nombre=${input.value}`, { signal: controller.signal })
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    data.forEach(invitado => {
+                        const li = document.createElement('li');
+                        li.classList.add('list-group-item');
+                        li.textContent = invitado.nombre;
+                        li.onclick = () => selectName(invitado);
+                        results.appendChild(li);
+                    });
+                } else {
+                    // No se encontraron resultados, mostrar alerta
+                    notFoundAlert.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                if (error.name !== 'AbortError') { // Ignorar el error de aborto
+                    console.error('Error:', error);
+                    notFoundAlert.textContent = 'Error al buscar. Intenta nuevamente.';
+                    notFoundAlert.style.display = 'block';
+                }
+            });
+    }
+}
+
+function selectName(invitado) {
+    document.getElementById('nameSearch').value = invitado.nombre;
+    document.getElementById('nameSearch').dataset.selectedId = invitado._id; // Guardar el ID del invitado seleccionado
+    document.getElementById('searchResults').innerHTML = ''; // Limpiar los resultados de búsqueda
+    document.getElementById('notFoundAlert').style.display = 'none'; // Ocultar alerta
+
+    // Mostrar botón de confirmar o cancelar asistencia según el estado del invitado
+    if (invitado.confirmado) {
+        document.getElementById('confirmButton').style.display = 'none';
+        document.getElementById('cancelButton').style.display = 'block';
+    } else {
+        document.getElementById('confirmButton').style.display = 'block';
+        document.getElementById('cancelButton').style.display = 'none';
+    }
+}
+
+var shouldCallTooltipAR = true;
+
+function confirmAttendance() {
+    shouldCallTooltipAR = false;
+    const selectedInvitadoId = document.getElementById('nameSearch').dataset.selectedId;
+    updateAttendance(selectedInvitadoId, true);
+}
+
+function cancelAttendance() {
+    shouldCallTooltipAR = false;
+    const selectedInvitadoId = document.getElementById('nameSearch').dataset.selectedId;
+    updateAttendance(selectedInvitadoId, false);
+}
+
+function updateAttendance(invitadoId, confirmar) {
+    if (invitadoId) {
+        fetch(`/api/${confirmar ? 'confirmar_asistencia' : 'cancelar_asistencia'}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: invitadoId})
+        })
+        .then(response => response.json())
+        .then(data => {
+            Swal.fire({
+                icon: data.success ? 'success' : 'error',
+                title: data.success ? (confirmar ? 'Confirmado' : 'Cancelado') : 'Error',
+                text: data.message
+            }).then((result) => { tooltipAR(); });
+
+            if (data.success) {
+                $('#confirmAttendanceModal').modal('hide');
+                document.getElementById('confirmButton').style.display = 'none';
+                document.getElementById('cancelButton').style.display = 'none';
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se ha seleccionado ningún invitado.'
+        }).then((result) => { tooltipAR(); });
+    }
+    
+}
+
+// Agrega oyentes a todos los modales
+var modales = document.querySelectorAll('.modal-confirm');
+modales.forEach(function(modal) {
+    modal.addEventListener('hidden.bs.modal', function () {
+        if (shouldCallTooltipAR) { // Verificar el estado del interruptor antes de llamar a tooltipAR
+            tooltipAR();
+        }
+        // Restablecer el interruptor para el próximo cierre
+        shouldCallTooltipAR = true;
+    });
+});
+// Ahora, el evento 'hidden.bs.modal' comprobará si debe llamar a tooltipAR o no,
+// basándose en las acciones del usuario dentro del modal.
+
+
+
+    fetch('/api/config')
+        .then(response => response.json())
+        .then(config => {
+            if (config) {
+                // Configurar la ubicación desde la base de datos
+                //codigo comentado por Ciro
+          /*       document.getElementById('locationButton').onclick = function() {
+                    window.open(`https://www.google.com/maps?q=${config.eventoCoordX},${config.eventoCoordY}`, '_blank');
+                };
+                document.getElementById('locationButtonIglesia').onclick = function() {
+                    window.open(`https://www.google.com/maps?q=${config.iglesiaCoordX},${config.iglesiaCoordY}`, '_blank');
+                }; */
+
+                // Configurar modales
+                // Configurar modales
+                document.getElementById('infoEvent').addEventListener('click', function() {
+                    const modalBody = document.querySelector('#eventInfoModal .modal-body');
+                    /* modalBody.innerHTML = config.infoEvent || 'No hay información cargada'; */
+                });
+
+       /*          const donationModalBody = document.querySelector('#donationModal .modal-body');
+                donationModalBody.innerHTML = `
+                    <p><strong>Nombre y Apellido:</strong> ${config.titularCuenta}</p>
+                    <p><strong>CBU Alias:</strong> ${config.alias}</p>
+                    <p><strong>CBU:</strong> ${config.cbu}</p>
+                `; */
+
+                // Cambiar el fondo del cuerpo si hay una imagen configurada
+                if (config.backgroundImage) {
+                    // Corrige la ruta de la imagen reemplazando barras invertidas por normales
+                    const imageUrl = config.backgroundImage.replace(/\\/g, '/');
+                    document.body.style.backgroundImage = `url('${imageUrl}')`;
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center center';
+                }
+            }
+        })
+        .catch(error => console.error('Error al cargar configuración:', error));
+
+
+// Función para actualizar la visibilidad del indicador de desplazamiento del modal de información
+function updateScrollEventInfo(modalBody) {
+    if (modalBody.scrollHeight > modalBody.clientHeight) {
+        document.getElementById('scroll-indicator-eventInfo').style.display = 'block';
+    } else {
+        document.getElementById('scroll-indicator-eventInfo').style.display = 'none';
+    }
+}
+
+// Manejador de eventos de desplazamiento para el modal de información
+function handleScrollEventInfo(event) {
+    const modalBody = event.target;
+    const scrollHeight = modalBody.scrollHeight;
+    const scrollPosition = modalBody.scrollTop + modalBody.clientHeight;
+    const scrollPercentage = (scrollPosition / scrollHeight) * 100;
+
+    if (scrollPercentage >= 99) {
+        document.getElementById('scroll-indicator-eventInfo').style.display = 'none';
+    } else {
+        document.getElementById('scroll-indicator-eventInfo').style.display = 'block';
+    }
+}
+
+// Configuración cuando el modal de información se muestra
+$('#eventInfoModal').on('shown.bs.modal', function () {
+    const modalBody = document.querySelector('#eventInfoModal .modal-body');
+
+    updateScrollEventInfo(modalBody); // Actualizar el indicador de desplazamiento al abrir el modal
+    modalBody.removeEventListener('scroll', handleScrollEventInfo); // Evitar añadir múltiples manejadores
+    modalBody.addEventListener('scroll', handleScrollEventInfo); // Añadir el manejador de desplazamiento
+});
+
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.addEventListener('touchstart', function(event) {
+    touchStartX = event.changedTouches[0].screenX;
+}, false);
+
+document.addEventListener('touchmove', function(event) {
+    touchEndX = event.changedTouches[0].screenX;
+    // Prevenir el desplazamiento de la página
+    if (Math.abs(touchEndX - touchStartX) > 10) {
+        event.preventDefault();
+    }
+}, { passive: false });
+
+document.addEventListener('touchend', function(event) {
+    handleGesture();
+}, false);
+
+function handleGesture() {
+    if (touchEndX > touchStartX + 50) { // Ajusta el umbral según tus necesidades
+       
+    }
+}
+ function checkOrientation() {
+            if (window.innerWidth > window.innerHeight) {
+                document.getElementById('landscape-overlay').style.display = 'block';
+                document.getElementById('content').style.display = 'none';
+            } else {
+                document.getElementById('landscape-overlay').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+            }
+        }
+
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('load', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
+
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,278 @@
+   <style type="text/css">
+    .thead-fixed th {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100; /* Asegura que los encabezados estén bien por encima del contenido */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+    border-top: solid 2px white; /* Añade un borde superior del mismo color que el fondo */
+}
+
+.table-responsive {
+    position: relative;
+    overflow-y: auto;
+}
+
+
+   </style>
+
+    <div class="container-fluid mt-5">
+        <h3 class="text-left mb-4 text-white">Panel de Donaciones</h3>
+        <div class="row">      
+    
+        <!-- Mayor Donante -->
+        <div class="col-12 col-xl-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Mayor Donante
+                </div>
+                <div class="card-body">
+                    {% if top_donor %}
+                    <h5 class="card-title">{{ top_donor[0] }}</h5>
+                    <p class="card-text">Total Donado: {{ top_donor[1]['total']|currency }}</p>
+                    {% else %}
+                    <p>No hay donaciones registradas.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-4">
+            <!-- Regalo Más Donado -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Regalo Más Donado
+                </div>
+                <div class="card-body">
+                    {% if top_gift %}
+                    <h5 class="card-title text-uppercase">{{ top_gift[0] }}</h5>
+                    <p class="card-text">Total Recaudado: {{ top_gift[1]|currency }}</p>
+                    {% else %}
+                    <p>No hay donaciones registradas.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>   
+
+        <div class="col-12 col-xl-4">
+            <!-- Promedio de Donación por Persona -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Promedio de Donación por Persona
+                </div>
+                <div class="card-body">
+                     {% if avg_donation_per_person > 0 %}
+                    <h5 class="card-title">{{ avg_donation_per_person|currency }}</h5>
+                    <p class="card-text">El promedio de donación por persona es de {{ avg_donation_per_person|currency }}</p>
+                    {% else %}
+                    <p>No hay donaciones registradas.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+ 
+
+        <div class="col-12 col-xl-4">
+            <!-- Gráfico de Donaciones por Persona -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Comparación de Donantes
+                </div>
+                <div class="card-body">
+                    <canvas id="donorsComparisonChart" height="300px"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-4">
+            <!-- Gráfico de Donaciones por Regalo -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Comparación de Regalos
+                </div>
+                <div class="card-body">
+                    <canvas id="giftsComparisonChart" height="300px"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-xl-4">
+
+            <!-- Gráfico de Métodos de Pago -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Distribución de Métodos de Pago
+                </div>
+                <div class="card-body ">
+                    <canvas id="paymentMethodsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <!-- Donaciones por Persona -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Donaciones por Persona
+                </div>
+               <div class="card-body table-responsive" style="max-height: 400px; overflow-y: auto; padding-top:0 !important;">
+                    <table class="table table-striped">
+                        <thead class="thead-fixed">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Total Donado</th>
+                                <th>Regalos Donados</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for person, data in donations_by_person.items() %}
+                            <tr>
+                                <td>{{ person }}</td>
+                                <td>{{ data.total|currency }}</td>
+                                <td>
+                                    <ul>
+                                        {% for gift in data.gifts %}
+                                        <li>{{ gift.gift }}: {{ gift.amount|currency }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-12">
+            <!-- Donaciones por Regalo -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    Donaciones por Regalo
+                </div>
+                <div class="card-body" style="padding-top: 0 !important;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Regalo</th>
+                                <th>Total Recaudado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for gift, total in donations_by_gift.items() %}
+                            <tr>
+                                <td class="text-uppercase">{{ gift }}</td>
+                                <td>{{ total|currency }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+    <script>
+function load_data() {
+    // Datos para el gráfico de donantes
+    const donorsData = {{ donations_by_person|tojson }};
+    const donorNames = Object.keys(donorsData);
+    const donorTotals = donorNames.map(name => donorsData[name].total);
+
+    new Chart(document.getElementById('donorsComparisonChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: donorNames,
+            datasets: [{
+                label: 'Total Donado',
+                data: donorTotals,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Datos para el gráfico de regalos
+    const giftsData = {{ donations_by_gift|tojson }};
+    const giftNames = Object.keys(giftsData);
+    const giftTotals = giftNames.map(name => giftsData[name]);
+
+    new Chart(document.getElementById('giftsComparisonChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: giftNames,
+            datasets: [{
+                label: 'Total Recaudado',
+                data: giftTotals,
+                backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                borderColor: 'rgba(153, 102, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Datos para el gráfico de métodos de pago
+    const paymentMethodsData = {{ payment_methods|tojson }};
+    const paymentLabels = Object.keys(paymentMethodsData);
+    const paymentAmounts = paymentLabels.map(method => paymentMethodsData[method]);
+
+    new Chart(document.getElementById('paymentMethodsChart').getContext('2d'), {
+        type: 'pie',
+        data: {
+            labels: paymentLabels,
+            datasets: [{
+                label: 'Métodos de Pago',
+                data: paymentAmounts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+load_data();
+
+    </script>
+

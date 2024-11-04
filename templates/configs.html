@@ -1,0 +1,219 @@
+<div class="container-fluid mt-4">
+	<h2 class="text-white">Configuraciones Generales</h2>
+	<button class="btn btn-success mb-3 float-end" style="margin-left:1rem; " id="guardarInfoBTN">
+        <span class="material-symbols-outlined float-start" style="margin-right: .5rem;">select_check_box</span> Guardar info.
+    </button>
+	 <button class="btn btn-primary mb-3 float-end" onclick="showAddModal()">
+        <span class="material-symbols-outlined float-start" style="margin-right: .5rem;">note_stack_add</span> Agregar Informacion del evento.
+    </button>
+    
+	<form id="configs_form" enctype="multipart/form-data">
+	    <div class="row" style="margin-top: 4.5rem;">
+	    	<div class="col-12">
+	    		<div class="row">
+	    			<div class="col-12">
+	    				<h6 class="text-white">Imagen de Fondo.</h6>
+	    			</div>
+	    			<div class="col-12" style="cursor: pointer;" onclick="showAlertWithImage()">
+	    				<div class="float-start" style="display:none; margin-bottom: .5rem;" id="imagenDivBACK">
+	    					Ya existe una imagen cargada pulsa aqui para verla
+	    					<span class="material-symbols-outlined float-end" style="margin-left:1rem; margin-right: .2rem;">eye_tracking</span>
+	    				</div>
+	    				<img id="currentBackgroundImage" class="float-end img" src="" alt="No hay imagen cargada" style="display: none;">
+	    			</div>
+	    		</div>
+	    		<div class="input-group mb-3">
+				  <span class="input-group-text bg-dark text-white material-symbols-outlined">upload</span>
+				  <input type="file" class="form-control bg-dark text-white" id="backgroundImageAPP" name="backgroundImageAPP" style="border: solid 1px; border-color: white;">
+				</div>
+
+	    	</div>
+	    	<div class="col-12">
+	    		<h6 class="text-white">Coordenadas del Evento.</h6>
+	    		<div class="input-group">
+				  <span class="input-group-text bg-dark text-white material-symbols-outlined">pin_drop</span>
+				  <input type="text" aria-label="Cordenada X" name="eventoCoordX" id="eventoCoordX" class="form-control bg-dark text-white" style="border: solid 1px; border-color:white;"  placeholder="Ingrese la coordenada X">
+				  <input type="text" aria-label="Coordenada Y" name="eventoCoordY" id="eventoCoordY" class="form-control bg-dark text-white" style="border: solid 1px; border-color:white;"  placeholder="Ingrese la coordenada Y">
+				</div>
+	    	</div>
+	    	<div class="col-12" style="margin-top:1rem">
+	    		<h6 class="text-white">Coordenadas de la iglesia.</h6>
+	    		<div class="input-group">
+				  <span class="input-group-text bg-dark text-white material-symbols-outlined">church</span>
+				  <input type="text" aria-label="Cordenada X" name="iglesiaCoordX" id="iglesiaCoordX" class="form-control bg-dark text-white" style="border: solid 1px; border-color:white;"  placeholder="Ingrese la coordenada X">
+				  <input type="text" aria-label="Coordenada Y" name="iglesiaCoordY" id="iglesiaCoordY" class="form-control bg-dark text-white" style="border: solid 1px; border-color:white;"  placeholder="Ingrese la coordenada Y">
+				</div>
+	    	</div>
+	    	<div class="col-12" style="margin-top:1.5rem">
+	    		<hr style="background-color: white;">
+	    		<h4 class="text-white">Configuraciones de donaciones.</h4>
+	    	</div>
+	    	<div class="col-12" style="margin-top:1rem">
+	    		<h6 class="text-white">Titular de la cuenta.</h6>
+	    		<div class="input-group mb-3">
+				  <span class="input-group-text bg-dark text-white material-symbols-outlined">account_circle</span>
+				  <input type="text" class="form-control bg-dark text-white" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="border:solid 1px; border-color: white;" placeholder="Ingrese el nombre del titular de la cuenta." name="titularCuenta" id="titularCuenta">
+				</div>
+	    	</div>
+	    	<div class="col-12" style="margin-top:1rem">
+	    		<h6 class="text-white">C.B.U.</h6>
+	    		<div class="input-group mb-3">
+				  <span class="input-group-text bg-dark text-white material-symbols-outlined">account_balance</span>
+				  <input type="text" class="form-control bg-dark text-white" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="border:solid 1px; border-color: white;" placeholder="Ingrese su CBU." name="cbu" id="cbu">
+				</div>
+	    	</div>
+	    	<div class="col-12" style="margin-top:1rem">
+	    		<h6 class="text-white">Alias.</h6>
+	    		<div class="input-group mb-3">
+				  <span class="input-group-text bg-dark text-white material-symbols-outlined">signature</span>
+				  <input type="text" class="form-control bg-dark text-white" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" style="border:solid 1px; border-color: white;" placeholder="Ingrese su alias." name="alias" id="alias">
+				</div>
+	    	</div>
+	    </div>
+    </form>
+</div>
+
+<!-- Modal para Agregar/Editar info del evento -->
+<div class="modal fade" id="eventInfoID" tabindex="-1" aria-labelledby="eventInfoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eventInfoModalLabel">Informacion del Evento.</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+               	<form id="infoevent_form">
+	               <label for="eventContenido" class="form-label"></label>
+	               <textarea class="form-control" id="eventContenido" required></textarea>
+	               <button type="submit" class="btn btn-primary float-end" style="margin-top:2rem">Guardar</button>
+	            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+	CKEDITOR.replace('eventContenido', {
+    // Asegúrate de excluir 'exportpdf' de la lista de plugins extra o deshabilitarlo explícitamente
+    removePlugins:'exportpdf',
+    removeButtons: 'Form,Checkbox,Radio,TextField,Textarea,Select,Button,ImageButton,HiddenField,Save,NewPage,Preview,Print,Flash,Iframe,PageBreak,CreateDiv,Source'
+});
+	function showAddModal() {
+    $('#eventInfoID').modal('show');
+}
+
+
+
+
+
+function fetchConfig() {
+    fetch('/api/config')
+    .then(response => response.json())
+    .then(data => {
+        if (data && Object.keys(data).length > 0) {
+            document.getElementById('eventoCoordX').value = data.eventoCoordX || '';
+            document.getElementById('eventoCoordY').value = data.eventoCoordY || '';
+            document.getElementById('iglesiaCoordX').value = data.iglesiaCoordX || '';
+            document.getElementById('iglesiaCoordY').value = data.iglesiaCoordY || '';
+            document.getElementById('titularCuenta').value = data.titularCuenta || '';
+            document.getElementById('cbu').value = data.cbu || '';
+            document.getElementById('alias').value = data.alias || '';
+            // Actualizar la imagen de fondo
+            if (data.backgroundImage) {
+                document.getElementById('currentBackgroundImage').src =  data.backgroundImage;
+                $('#imagenDivBACK').show();
+            }else{
+            	$('#imagenDivBACK').hide();
+            }
+        } else {
+            Swal.fire('Información', 'Aún no se han cargado datos de configuración', 'info');
+        }
+    })
+    .catch(error => {
+        console.error('Error al cargar la configuración:', error);
+        Swal.fire('Error', 'Error al cargar la configuración', 'error');
+    });
+}
+
+function fetchEventInfo() {
+    fetch('/api/info_event')
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.infoEvent) {
+            CKEDITOR.instances.eventContenido.setData(data.infoEvent);
+        }
+    });
+}
+
+document.getElementById('guardarInfoBTN').addEventListener('click', function(e) {
+    e.preventDefault();
+    let formData = new FormData(document.getElementById('configs_form'));
+    fetch('/api/upload_background', {
+	    method: 'POST',
+	    body: formData
+	})
+	.then(response => {
+	    if (!response.ok) {
+	        throw new Error('Error en la solicitud: ' + response.statusText);
+	    }
+	    return response.json();
+	})
+	.then(data => {
+	    Swal.fire('Éxito', data.message, 'success');
+	    loadPanel('configs');
+	})
+	.catch(error => {
+	    Swal.fire('Error', 'No se pudo guardar la configuración: ' + error.message, 'error');
+	});
+
+});
+
+
+document.getElementById('infoevent_form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    let infoEvento = CKEDITOR.instances.eventContenido.getData();
+    fetch('/api/info_event', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ infoEvent: infoEvento })
+    })
+    .then(response => response.json())
+    .then(data => {
+        Swal.fire('Éxito', data.message, 'success');
+        $('#eventInfoID').modal('hide');
+ 		loadPanel('configs');
+    })
+    .catch(error => {
+        Swal.fire('Error', 'No se pudo actualizar la información del evento: ' + error.message, 'error');
+    });
+});
+
+
+    fetchConfig();
+    fetchEventInfo();
+
+function showAlertWithImage() {
+    const imageSrc = document.getElementById('currentBackgroundImage').src;
+    if (imageSrc) {
+        Swal.fire({
+            html: `
+                <h2>Imagen de Fondo Actual</h2>
+                <img src="${imageSrc}" class="img-thumbnail rounded" alt="Imagen de fondo no cargada" style="width: 200px;">`,  // Ajusta el estilo según necesites
+            width: 600,
+            padding: '1em',
+            background: '#fff',
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No hay ninguna imagen de fondo cargada.',
+        });
+    }
+}
+
+
+</script>

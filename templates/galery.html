@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="icon"
+      href="https://vineethtr.000webhostapp.com/wp-content/uploads/2018/01/logo.png"
+      sizes="192x192"
+    />
+    <link
+      rel="apple-touch-icon-precomposed"
+      href="https://vineethtr.000webhostapp.com/wp-content/uploads/2018/01/logo.png"
+    />
+    <meta
+      name="msapplication-TileImage"
+      content="https://vineethtr.000webhostapp.com/wp-content/uploads/2018/01/logo.png"
+    />
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>C&E - Galeria</title>
+
+    <script type="text/javascript">
+      // Redirección rápida basada en el userAgent
+      (function () {
+        if (!/Mobi|Tablet|iPad|Android/i.test(navigator.userAgent)) {
+          // El usuario está usando una PC
+          window.location.href = "/pc";
+        }
+      })();
+    </script>
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style media="screen">
+      .no-select {
+        -webkit-user-select: none; /* Chrome, Safari, Opera */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+      }
+
+      .vertical.carousel .carousel-control {
+        bottom: auto;
+        width: 100%;
+        height: 15%;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0, rgba(0, 0, 0, 0.5)),
+          to(rgba(0, 0, 0, 0))
+        );
+        background: -moz-linear-gradient(
+          top,
+          rgba(0, 0, 0, 0.5) 0,
+          rgba(0, 0, 0, 0) 100%
+        );
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.5) 0,
+          rgba(0, 0, 0, 0) 100%
+        );
+      }
+      .vertical.carousel .carousel-control.right {
+        top: auto;
+        bottom: 0;
+        background: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          from(rgba(0, 0, 0, 0)),
+          to(rgba(0, 0, 0, 0.5))
+        );
+        background: -moz-linear-gradient(
+          top,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+        background: linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0.5) 100%
+        );
+      }
+      .vertical.carousel .carousel-control .glyphicon {
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+      }
+      .vertical.carousel .carousel-indicators {
+        bottom: auto;
+        top: 50%;
+        left: auto;
+        right: 10px;
+        width: 14px;
+        margin: 0;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+      }
+      .vertical.carousel .carousel-inner > .item {
+        left: 0;
+        top: 0;
+      }
+      .vertical.carousel .carousel-inner > .item > img {
+        width: 100%;
+      }
+      .vertical.carousel .carousel-inner > .item.next,
+      .vertical.carousel .carousel-inner > .item.active.right {
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
+        top: 0;
+      }
+      .vertical.carousel .carousel-inner > .item.prev,
+      .vertical.carousel .carousel-inner > .item.active.left {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        top: 0;
+      }
+      .vertical.carousel .carousel-inner > .item.next.left,
+      .vertical.carousel .carousel-inner > .item.prev.right,
+      .vertical.carousel .carousel-inner > .item.active {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        top: 0;
+      }
+      .vertical.carousel .carousel-inner > .active,
+      .vertical.carousel .carousel-inner > .next.left,
+      .vertical.carousel .carousel-inner .prev.right {
+        top: 0;
+      }
+      .vertical.carousel .carousel-inner > .next,
+      .vertical.carousel .carousel-inner > .active.right {
+        top: 100%;
+        left: 0;
+      }
+      .vertical.carousel .carousel-inner > .prev,
+      .vertical.carousel .carousel-inner > .active.left {
+        top: -100%;
+        left: 0;
+      }
+
+      .s {
+        color: #d44950;
+      } /* Literal.String */
+      .na {
+        color: #4f9fcf;
+      } /* Name.Attribute */
+      .nt {
+        color: #2f6f9f;
+      } /* Name.Tag */
+
+      * {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+
+      a {
+        color: #03658c;
+        text-decoration: none;
+      }
+
+      ul {
+        list-style-type: none;
+      }
+
+      body {
+        font-family: "Roboto", Arial, Helvetica, Sans-serif, Verdana;
+        background: #dee1e3;
+      }
+
+      /** ====================
+ * Lista de Comentarios
+ =======================*/
+      .comments-container {
+        margin: 60px auto 15px;
+        width: 768px;
+      }
+
+      .comments-container h1 {
+        font-size: 36px;
+        color: #283035;
+        font-weight: 400;
+      }
+
+      .comments-container h1 a {
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .comments-list {
+        margin-top: 30px;
+        position: relative;
+      }
+
+      /**
+ * Lineas / Detalles
+ -----------------------*/
+      .comments-list:before {
+        content: "";
+        width: 2px;
+        height: 49vh;
+        background: #c7cacb;
+        position: fixed;
+        left: 32px;
+        z-index: 0;
+        bottom: 11vh;
+      }
+
+      .reply-list:before,
+      .reply-list:after {
+        display: none;
+      }
+      .reply-list li:before {
+        content: "";
+        width: 60px;
+        height: 2px;
+        background: #c7cacb;
+        position: absolute;
+        top: 25px;
+        left: -55px;
+      }
+
+      .comments-list li {
+        margin-bottom: 15px;
+        display: block;
+        position: relative;
+      }
+
+      .comments-list li:after {
+        content: "";
+        display: block;
+        clear: both;
+        height: 0;
+        width: 0;
+      }
+
+      .reply-list {
+        padding-left: 88px;
+        clear: both;
+        margin-top: 15px;
+      }
+      /**
+ * Avatar
+ ---------------------------*/
+      .comments-list .comment-avatar {
+        z-index: 99;
+        float: left;
+        border: 3px solid #fff;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .comments-list .comment-avatar img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .reply-list .comment-avatar {
+        width: 50px;
+        height: 50px;
+      }
+
+      .comment-main-level:after {
+        content: "";
+        width: 0;
+        height: 0;
+        display: block;
+        clear: both;
+      }
+      /**
+ * Caja del Comentario
+ ---------------------------*/
+      .comments-list .comment-box {
+        width: auto;
+        position: relative;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+      }
+
+      .comments-list .comment-box:before,
+      .comments-list .comment-box:after {
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        display: block;
+        border-width: 10px 12px 10px 0;
+        border-style: solid;
+        border-color: transparent #fcfcfc;
+        top: 8px;
+        left: -11px;
+      }
+
+      .comments-list .comment-box:before {
+        border-width: 11px 13px 11px 0;
+        border-color: transparent rgba(0, 0, 0, 0.05);
+        left: -12px;
+      }
+
+      .reply-list .comment-box {
+        width: auto;
+      }
+      .comment-box .comment-head {
+        background: #fcfcfc;
+        padding: 10px 12px;
+        border-bottom: 1px solid #e5e5e5;
+        overflow: hidden;
+        -webkit-border-radius: 4px 4px 0 0;
+        -moz-border-radius: 4px 4px 0 0;
+        border-radius: 4px 4px 0 0;
+      }
+
+      .comment-box .comment-head i {
+        float: right;
+        margin-left: 14px;
+        position: relative;
+        top: 2px;
+        color: #a6a6a6;
+        cursor: pointer;
+        -webkit-transition: color 0.3s ease;
+        -o-transition: color 0.3s ease;
+        transition: color 0.3s ease;
+      }
+
+      .comment-box .comment-head i:hover {
+        color: #03658c;
+      }
+
+      .comment-box .comment-name {
+        color: #283035;
+        font-size: 14px;
+        font-weight: 700;
+        float: left;
+        margin-right: 10px;
+      }
+
+      .comment-box .comment-name a {
+        color: #283035;
+      }
+
+      .comment-box .comment-head span {
+        float: left;
+        color: #999;
+        font-size: 13px;
+        position: relative;
+        top: 1px;
+      }
+
+      .comment-box .comment-content {
+        background: #fff;
+        padding: 12px;
+        font-size: 15px;
+        color: #595959;
+        -webkit-border-radius: 0 0 4px 4px;
+        -moz-border-radius: 0 0 4px 4px;
+        border-radius: 0 0 4px 4px;
+      }
+
+      .comment-box .comment-name.by-author,
+      .comment-box .comment-name.by-author a {
+        color: #03658c;
+      }
+      .comment-box .comment-name.by-author:after {
+        content: "autor";
+        background: #03658c;
+        color: #fff;
+        font-size: 12px;
+        padding: 3px 5px;
+        font-weight: 700;
+        margin-left: 10px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+      }
+
+      /** =====================
+ * Responsive
+ ========================*/
+      @media only screen and (max-width: 766px) {
+        .comments-container {
+          width: 100%;
+        }
+
+        .comments-list .comment-box {
+          width: 100%;
+        }
+
+        .reply-list .comment-box {
+          width: 100%;
+        }
+      }
+
+      .videoHeader {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 999;
+      }
+
+      .videoHeader * {
+        padding: 20px;
+      }
+      .videoFooter {
+        position: fixed;
+        bottom: 50px;
+        margin-left: 20px;
+        z-index: 99999;
+      }
+
+      .videoFooter__text {
+        position: absolute;
+        bottom: 0;
+        color: white;
+        display: flex;
+        align-items: center;
+        margin-bottom: 45px;
+      }
+      .user__avatar {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+      }
+      .videoFooter__text h3 button {
+        color: white;
+        font-weight: 900;
+        text-transform: inherit;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        padding: 5px;
+      }
+
+      .videoFooter__ticker {
+        width: 60%;
+        margin-left: 30px;
+        margin-bottom: 20px;
+        height: fit-content;
+      }
+
+      .videoFooter__ticker marquee {
+        font-size: 12px;
+        padding-top: 7px;
+        color: white;
+      }
+
+      .videoFooter__ticker .material-icons {
+        position: absolute;
+        left: 5px;
+        color: white;
+      }
+
+      .videoFooter__actions {
+        position: fixed;
+        width: auto;
+        color: white;
+        right: 0px;
+        bottom: 30%;
+        font-size: 1.6em;
+      }
+
+      .videoFooter__actionsLeft .material-icons {
+        padding: 0 7px;
+        font-size: 1.6em;
+      }
+
+      .videoFooter__actionsRight .material-icons {
+        font-size: 25px;
+      }
+
+      .videoFooter__stat {
+        align-items: center;
+        margin-right: 10px;
+        margin-top: 2rem;
+      }
+      .videoFooter__stat p {
+        position: absolute;
+      }
+      .videoFooter__stat_comment p {
+        margin-right: 5px !important;
+      }
+
+      .decorTEXT {
+        text-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+          rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+          rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+      }
+
+      @keyframes slide {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      .liked {
+        color: red;
+      }
+
+      /* CSS para el efecto de corazón y explosión */
+      .heart-burst {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0); /* Comienza pequeño */
+        font-size: 240px; /* Tamaño del ícono */
+        color: red; /* Color del corazón */
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: heartBurst 2s ease-in-out forwards; /* Aumentamos la duración a 0.8s */
+      }
+
+      @keyframes heartBurst {
+        0% {
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 1;
+        }
+        20% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        40% {
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+        60% {
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        80% {
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0; /* Desvanecer suavemente al final */
+        }
+      }
+      .carousel-inner .item img {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover; /* Asegura que la imagen cubra el contenedor */
+        object-position: center; /* Centra la imagen */
+
+        overflow: hidden !important; /* Asegura que no haya desbordamiento */
+      }
+      .full-height {
+        height: calc(var(--vh, 1vh) * 100);
+        width: 100%;
+        overflow: hidden !important; /* Asegura que no haya desbordamiento */
+        position: absolute;
+      }
+
+      .custom-swal-input {
+        font-size: 1.4rem;
+        overflow: hidden !important;
+      }
+
+      .loader {
+        border: 6px solid #f3f3f3; /* Light grey */
+        border-top: 6px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+        position: fixed;
+        top: 40%;
+        left: 45%;
+        transform: translate(-50%, -50%);
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .image-container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+      }
+
+      .hidden {
+        display: none;
+      }
+      .landscape-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.99);
+        color: white;
+        text-align: center;
+        z-index: 1000;
+      }
+
+      .landscape-overlay .message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
+      }
+
+      .landscape-overlay .icon {
+        font-size: 3em;
+        animation: rotate-icon 1s infinite alternate;
+      }
+
+      @keyframes rotate-icon {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(90deg);
+        }
+      }
+      .no-photos-message {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 99999999;
+      }
+      .no-photos-message img {
+        max-width: 300px;
+        margin-bottom: 20px;
+      }
+      #swal2-input:focus {
+        outline: none; /* Elimina el borde por defecto */
+        border-color: #9f2c33; /* Cambia el color del borde al enfocar */
+        box-shadow: 0 0 5px rgba(176, 59, 59, 0.575); /* Añade una sombra de color*/
+      }
+    </style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@latest"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.js"></script>
+    <meta name="google" content="notranslate" />
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  </head>
+
+  <body style="background-color: black; overflow: hidden !important">
+    <div id="landscape-overlay" class="landscape-overlay">
+      <div class="message">
+        <i class="material-icons no-select icon">screen_rotation</i>
+        <p>Por favor regresa el teléfono a su posición vertical</p>
+      </div>
+    </div>
+    <div class="container full-height">
+      <div
+        class="vertical carousel slide"
+        id="carousel-example-generic"
+        style="position: absolute; left: 0; right: 0; height: 100vh"
+      >
+        <div class="carousel-inner" role="listbox">
+          <!-- Las imágenes se insertarán aquí dinámicamente -->
+        </div>
+        <a
+          href="#carousel-example-generic"
+          class="left carousel-control"
+          role="button"
+          data-slide="prev"
+          style="display: none"
+        >
+          <span
+            class="glyphicon glyphicon-chevron-left"
+            aria-hidden="true"
+          ></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a
+          href="#carousel-example-generic"
+          class="right carousel-control"
+          role="button"
+          data-slide="next"
+          style="display: none"
+        >
+          <span
+            class="glyphicon glyphicon-chevron-right"
+            aria-hidden="true"
+          ></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+
+    <i
+      id="heart"
+      class="material-icons no-select heart-burst"
+      style="display: none; font-size: 25rem"
+      >favorite</i
+    >
+
+    <div
+      class="offcanvas offcanvas-bottom"
+      tabindex="-1"
+      id="offcanvasBottom"
+      aria-labelledby="offcanvasBottomLabel"
+      style="height: auto"
+    >
+      <div class="offcanvas-header" style="background-color: #dee1e3">
+        <h2 class="offcanvas-title" id="offcanvasBottomLabel">Comentarios</h2>
+        <button
+          type="button"
+          class="btn-close"
+          id="btn-close-comments"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+          style="font-size: 1.4rem"
+        ></button>
+      </div>
+      <div
+        class="offcanvas-body small"
+        style="overflow: hidden; background-color: #dee1e3"
+      >
+        <!-- Contenedor Principal -->
+        <p style="margin-top: -1rem">
+          <span
+            class="material-icons no-select decorTEXT float-start"
+            style="font-size: 1.5rem; margin-right: 0.5rem"
+          >
+            favorite
+          </span>
+          <span class="likes-info" style="font-size: 1.2rem"
+            >A <u>Fede Rios y 23 personas mas le gusta esto.</u></span
+          >
+        </p>
+
+        <ul
+          id="comments-list"
+          class="comments-list"
+          style="
+            padding: 0;
+            height: 48.5vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+          "
+        ></ul>
+        <div class="row">
+          <div class="col-12" style="padding-left: 2rem">
+            <div class="input-group mb-4">
+              <textarea
+                type="text"
+                class="form-control"
+                placeholder="Escribe tu comentario..."
+                aria-label="Escribe tu comentario..."
+                aria-describedby="button-addon2"
+                style="font-size: 1.6rem"
+              ></textarea>
+              <button
+                class="btn text-white"
+                type="button"
+                id="button-addon2"
+                style="background-color: #9f2c33"
+              >
+                <span
+                  class="material-symbols-outlined no-select float-start"
+                  style="margin-right: 0.5rem"
+                >
+                  send
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+
+  <script>
+    const socket = io({
+      transports: ["polling"],
+      reconnection: true, // Habilita la reconexión automática
+      reconnectionAttempts: 10, // Número de intentos antes de abandonar la reconexión
+      reconnectionDelay: 5000, // Tiempo de espera entre intentos de reconexión (en ms)
+      reconnectionDelayMax: 10000, // Tiempo máximo de espera entre intentos de reconexión (en ms)
+      timeout: 20000, // Tiempo de espera antes de considerar que la conexión ha fallado (en ms)
+    });
+
+    socket.on("connect", () => {
+      console.log("Conectado al servidor");
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log("Desconectado del servidor:", reason);
+    });
+
+    socket.on("reconnect_attempt", (attemptNumber) => {
+      console.log("Intentando reconectar:", attemptNumber);
+    });
+
+    socket.on("reconnect_failed", () => {
+      console.log("Fallo en la reconexión");
+    });
+
+    socket.on("reconnect", (attemptNumber) => {
+      console.log(
+        "Reconectado exitosamente después de",
+        attemptNumber,
+        "intentos"
+      );
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      window.onload = function () {
+        var loader = document.getElementById("loadingSpinner");
+        if (loader) {
+          loader.style.display = "none";
+        }
+      };
+    });
+    function escapeCSSSelectorId(id) {
+      return id.replace(/([#;,.+*~':"!^$[\]()=>|/@])/g, "\\$1");
+    }
+    var imageDataStore = {};
+
+    function readGalery() {
+      fetch("/uploads-galery")
+        .then((response) => response.json())
+        .then((data) => {
+          const carouselInner = $("#carousel-example-generic .carousel-inner");
+          carouselInner.empty();
+          imageDataStore = {};
+
+          if (data.length > 0) {
+            data.forEach((imageData, index) => {
+              imageDataStore[imageData.imageId] = imageData;
+
+              const { imageId, imageUrl, likes, comments } = imageData;
+              const isActive = index === 0 ? "active" : "";
+
+              const img = $(`
+                    <div class="item ${isActive}" style="height:100vh; width: 100vw;">
+                        <div class="video" ondblclick="likeImage('${imageId}')" data-image-id="${imageId}">
+                            <div class="videoHeader">
+                                <span class="material-icons no-select text-white decorTEXT" style="font-size:2rem;" onclick="showHome()">arrow_back</span>
+                                <h3 class="text-white decorTEXT">Fotos del Evento</h3>
+                                <span class="material-icons no-select text-white decorTEXT" style="font-size:2rem; margin-right:13px">celebration</span>
+                            </div>
+                            <div class="image-container">
+                                <div class="loader"></div>
+                                <img class="video__player hidden" src="${imageUrl}" onload="this.classList.remove('hidden'); this.previousElementSibling.classList.add('hidden');">
+                            </div>
+                            <div class="videoFooter">
+                                <div class="videoFooter__actions">
+                                    <div class="videoFooter__actionsRight">
+                                        <div class="videoFooter__stat" style="margin-right:2.5rem" onclick="likeImage('${imageId}')">
+                                            <p class="position-relative">
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color:#9f2c33;">
+                                                    ${likes}
+                                                    <span class="visually-hidden">likes</span>
+                                                </span>
+                                            </p>
+                                            <span id="like-icon-${imageId}" class="material-icons no-select decorTEXT" style="font-size:3rem; ">favorite</span>
+                                        </div>
+                                        <div class="videoFooter__stat videoFooter__stat_comment decorTEXT" style="margin-right:2rem;" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom" data-image-id="${imageId}">
+                                            <p class="position-relative">
+                                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="background-color:#9f2c33;">
+                                                    ${comments.length}
+                                                    <span class="visually-hidden">comments</span>
+                                                </span>
+                                            </p>
+                                            <span class="material-icons no-select" style="font-size:3rem">chat</span>
+                                        </div>
+                                        <div class="videoFooter__stat decorTEXT videoFooter__stat_download" style="margin-right:2rem;" data-image-id="${imageId}">
+                                            <span class="material-icons no-select decorTEXT" style="font-size:3rem;">download</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+
+              carouselInner.append(img);
+              checkLikeStatus(imageId); // Verifica el estado del "like" para la imagen
+            });
+          } else {
+            carouselInner.html(
+              '<span class="material-symbols-outlined" onclick="showHome()" style="position:fixed; top: 2rem; left:2rem; color:white;font-size:3rem">reply</span><div class="no-photos-message"><p>¡No hay fotos todavía!</p><img src="../static/fondo-noimg-casamiento1.png" alt="No hay fotos cargadas"><p>¡Sube las tuyas y haz el evento aún más especial!😊.</p></div>'
+            );
+          }
+        })
+        .catch((error) =>
+          console.error("Error al cargar las imágenes:", error)
+        );
+    }
+
+    let currentCommentsRequest = null;
+
+    $(document).on("click", ".videoFooter__stat_comment", function () {
+      const imageId = $(this).data("image-id");
+      console.log("Opening comments for image id:", imageId);
+
+      // Establecer el nuevo atributo data-image-id
+      $("#comments-list").attr("data-image-id", imageId);
+
+      // Agregar el indicador de carga dentro del div de comentarios
+      if ($("#loadingComments").length === 0) {
+        $("#comments-list").before(`
+            <div id="loadingComments" style="text-align: center; margin-top: 20px;margin-bottom:20px">
+                <span class="spinner-border" role="status" aria-hidden="true" style="margin-bottom:.7rem"></span>
+                <br><span>Cargando comentarios...</span>
+            </div>
+        `);
+      }
+
+      // Mostrar el offcanvas y el indicador de carga
+      new bootstrap.Offcanvas(
+        document.getElementById("offcanvasBottom")
+      ).show();
+      $("#loadingComments").show();
+      $("#comments-list").hide();
+
+      // Limpiar los comentarios anteriores
+      $("#comments-list").empty();
+    });
+
+    $(document).on("show.bs.offcanvas", "#offcanvasBottom", function () {
+      const imageId = $("#comments-list").attr("data-image-id");
+
+      if (currentCommentsRequest) {
+        currentCommentsRequest.abort();
+      }
+
+      const controller = new AbortController();
+      currentCommentsRequest = controller;
+
+      fetch(`/comments/${imageId}`, { signal: controller.signal }) // Suponiendo que esta es la ruta para obtener los comentarios
+        .then((response) => response.json())
+        .then((data) => {
+          updateOffcanvasContent(imageId, data);
+          $("#loadingComments").hide(); // Ocultar el indicador de carga
+          $("#comments-list").show(); // Mostrar la lista de comentarios
+          currentCommentsRequest = null;
+        })
+        .catch((error) => {
+          if (error.name === "AbortError") {
+            console.log("Fetch aborted");
+          } else {
+            console.error("Error al cargar los comentarios:", error);
+            $("#loadingComments").hide(); // Ocultar el indicador de carga en caso de error
+            $("#comments-list").show(); // Mostrar la lista de comentarios (aunque esté vacía)
+          }
+        });
+    });
+
+    // Limpiar comments-list al cerrar el offcanvas
+    $(document).on("hidden.bs.offcanvas", "#offcanvasBottom", function () {
+      $("#comments-list").empty();
+      if (currentCommentsRequest) {
+        currentCommentsRequest.abort();
+        currentCommentsRequest = null;
+      }
+    });
+
+    function updateOffcanvasContent(imageId, data) {
+      var commentsList = $("#comments-list");
+
+      console.log("Updating offcanvas for image id:", imageId);
+
+      if (!data) {
+        console.error("No data found for image id:", imageId);
+        return;
+      }
+
+      // Vaciar los comentarios antes de agregar los nuevos
+      commentsList.empty();
+      console.log("New image id set to:", imageId);
+
+      const { comments, likes, randomLikeUser } = data;
+      const userName = randomLikeUser || "Alguien";
+      const likesText =
+        likes > 1
+          ? `A ${userName} y ${likes - 1} personas más les gusta esto`
+          : likes === 1
+          ? `A ${userName} le gusta esto`
+          : "Nadie aún le ha dado like a esto.";
+
+      $("#offcanvasBottom").find(".likes-info").html(likesText);
+
+      comments.forEach((comment) => {
+        const commentElement = $(`
+            <li>
+                <div class="comment-main-level">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="comment-avatar"><img src="${
+                              comment.avatar || "default_avatar.png"
+                            }" alt=""></div>
+                        </div>
+                        <div class="col-10">
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name"><a href="#">${
+                                      comment.userName
+                                    }</a></h6>
+                                    <span>${comment.timeAgo}</span>
+                                </div>
+                                <div class="comment-content">
+                                    ${comment.text}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        `);
+        commentsList.append(commentElement);
+      });
+    }
+
+    function checkLikeStatus(image) {
+      // Escapar el ID solo para uso en el selector
+      let escapedImageId = escapeCSSSelectorId(image);
+
+      // Enviar el ID original en la solicitud a la API
+      fetch("/check-likes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image_id: image }), // Usar el ID original aquí
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Utilizar el ID escapado solo para la selección del elemento DOM
+          if (data.liked) {
+            $(`#like-icon-${escapedImageId}`).addClass("liked");
+          }
+        })
+        .catch((error) => {
+          console.error("Error checking like status:", error);
+        });
+    }
+
+    function closeGallery() {
+      const galleryContainer = document.getElementById("galleryContainer");
+      galleryContainer.style.display = "none"; // Ocultar el contenedor
+    }
+
+    function likeImage(imageId) {
+      let escapedImageId = escapeCSSSelectorId(imageId);
+      fetch("/like", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image_id: imageId }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const likeButton = document.querySelector(
+            `#like-icon-${escapedImageId}`
+          );
+          const heart = document.getElementById("heart");
+          if (likeButton) {
+            if (data.liked) {
+              likeButton.classList.add("liked");
+              heart.style.display = "flex"; // Muestra el ícono
+              createConfetti();
+              setTimeout(() => {
+                heart.style.display = "none"; // Oculta el ícono después de la animación
+              }, 2000); // Coincide con la duración de la animación
+            } else {
+              likeButton.classList.remove("liked");
+            }
+          } else {
+            console.error(
+              "Like button not found:",
+              `#like-icon-${escapedImageId}`
+            );
+          }
+          updateLikeInfo(imageId); // Actualiza la información de "likes"
+        })
+        .catch((error) => {
+          console.error("Error handling like:", error);
+        });
+    }
+
+    function createConfetti() {
+      // Create a canvas element and get its context
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      // Define the emoji shape
+      const emojiShape = confetti.shapeFromText({
+        text: "❤️", // You can use any emoji here
+        scalar: 3,
+      });
+      // Call the confetti function with the emoji shape and other options
+      confetti({
+        particleCount: 225, // You can change the number of confetti particles
+        scalar: 3, // Make it a bit larger
+        angle: 90, // You can change the angle of the confetti launch
+        spread: 360, // You can change the spread of the confetti launch
+        startVelocity: 25, // You can change the initial velocity of the confetti particles
+        decay: 0.95, // You can change the decay rate of the confetti particles
+        shapes: [emojiShape], // You can pass an array of shapes to use as confetti particles
+        origin: {
+          x: 0.5,
+          y: 0.4,
+        }, // You can change the origin of the confetti launch
+        zIndex: 1024, // You can change the z-index of the confetti canvas
+      });
+    }
+
+    function commentImage(imageId) {
+      console.log("Comentario en imagen:", imageId);
+      // Aquí va tu código para abrir un modal de comentarios, por ejemplo
+    }
+
+    function downloadImage(imageId) {
+      console.log("Descarga imagen:", imageId);
+      // Aquí va tu código para manejar la descarga de la imagen
+    }
+    function showHome() {
+      window.location.href = "/?backtoGalery=1";
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const userId = getCookie("user_id");
+      if (userId) {
+        // Llamar a /checkuser para verificar si el usuario existe
+        fetch("/checkuser", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (!data.exists) {
+              // Si el usuario no existe, eliminar la cookie y registrar nuevamente
+              document.cookie = "user_id=; Max-Age=0; path=/;"; // Eliminar cookie
+              waitForNameRegistration();
+            } else {
+              // Si el usuario existe, continuar cargando la página
+              continueLoadingPage();
+            }
+          })
+          .catch((error) => {
+            console.error("Error al verificar el usuario:", error);
+            waitForNameRegistration();
+          });
+      } else {
+        // Si no hay cookie, registrar el nombre
+        waitForNameRegistration();
+      }
+    });
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    function waitForNameRegistration() {
+      Swal.fire({
+        title: "Bienvenido",
+        text: "Introduce tu nombre para interactuar con las fotos.",
+        input: "text",
+        inputPlaceholder: "Tu nombre aquí",
+        showCancelButton: false,
+        confirmButtonText: "Guardar",
+        allowOutsideClick: false,
+        customClass: {
+
+        },
+        didOpen: () => {
+          const confirmButton = Swal.getConfirmButton();
+          confirmButton.style.border = "2px solid #e7bebe";
+          confirmButton.style.color = "#a53d3d";
+          confirmButton.style.borderRadius = "5px";
+          confirmButton.style.backgroundColor = "#e7bebe";
+          confirmButton.style.padding = "10px 20px";
+          confirmButton.style.fontSize = "16px";
+
+          const modalContainer = document.querySelector(".swal2-container");
+          const modalpopup = document.querySelector(".swal2-popup");
+          modalContainer.style.background =
+            'url("../static/images/fondo-galeria-2.png")'; // Ruta de la imagen de fondo
+          modalContainer.style.backgroundSize = "cover"; // Ajusta el tamaño de la imagen para cubrir todo el contenedor
+          modalContainer.style.backgroundPosition = "center"; // Centra la imagen en el contenedor
+          modalContainer.style.backgroundRepeat = "no-repeat"; // Evita que la imagen se repita
+          modalpopup.style.border = "3px solid #9f2c33";
+          modalpopup.style.boxShadow = "0 0 5px rgba(208, 134, 134, 0.575)";
+          modalpopup.style.background =
+            'url("../static/images/fondo3.webp")';
+            modalpopup.style.backgroundSize = "cover"; // Ajusta el tamaño de la imagen para cubrir todo el contenedor
+          modalpopup.style.backgroundPosition = "center"; // Centra la imagen en el contenedor
+          modalpopup.style.backgroundRepeat = "no-repeat"; // 
+          modalpopup.style.marginTop = "60%";
+        },
+        inputValidator: (value) => {
+          return !value ? "Necesitas escribir tu nombre para continuar." : null;
+        },
+      }).then((result) => {
+        if (result.value) {
+          const userName = result.value;
+          fetch("/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: userName }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data.message);
+              continueLoadingPage(); // Una vez registrado, continúa cargando la página
+            })
+            .catch((error) => {
+              console.error("Error al registrar el usuario:", error);
+              waitForNameRegistration(); // Reintenta si hay un error
+            });
+        } else {
+          waitForNameRegistration(); // Reintenta si no se ingresó un nombre
+        }
+      });
+    }
+
+    function continueLoadingPage() {
+      console.log(
+        "El usuario está registrado, continúa con la carga de la página."
+      );
+      readGalery();
+    }
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
+    // Asegurarse de que el offcanvas y el backdrop se cierran correctamente
+    $(".btn-close").click(function () {
+      var offcanvasElement = document.getElementById("offcanvasBottom");
+      var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+      offcanvasInstance.hide();
+      $(".offcanvas-backdrop").remove();
+    });
+
+    // También manejar el cierre cuando se usa el evento de dismiss de Bootstrap
+    $("#offcanvasBottom").on("hidden.bs.offcanvas", function () {
+      $(".offcanvas-backdrop").remove(); // Esto removerá el backdrop explícitamente si no se oculta automáticamente
+    });
+
+    $(document).ready(function () {
+      $("#button-addon2")
+        .off("click")
+        .on("click", function () {
+          var imageId = $("#comments-list").attr("data-image-id"); // Usar attr en vez de data
+          var commentText = $(".form-control").val(); // Captura el texto del textarea
+
+          console.log("Submitting comment for image id:", imageId); // Añadir logging para depuración
+
+          if (commentText.trim() === "") {
+            showToast(
+              "Error",
+              "No puedes enviar un comentario vacío.",
+              "error"
+            );
+            return; // Evita enviar comentarios vacíos
+          }
+
+          const userId = getCookie("user_id");
+          if (!userId) {
+            showToast("Error", "No estás registrado.", "error");
+            return; // Evitar publicar si no está registrado
+          }
+
+          fetch("/post-comment", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              image_id: imageId,
+              text: commentText,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              $(".form-control").val(""); // Limpiar el campo de texto
+              if (data.error) {
+                showToast("Error", data.error, "error");
+              } else {
+                showToast(
+                  "Éxito",
+                  "Comentario publicado correctamente",
+                  "success"
+                );
+                updateLikeInfo(imageId); // Actualizar la información de likes y comentarios
+                if (data.comment) {
+                  appendCommentToCanvas(
+                    data.comment.userName,
+                    data.comment.text,
+                    data.comment.avatar,
+                    imageId
+                  ); // Añadir esta línea para agregar el comentario inmediatamente
+                }
+              }
+            })
+            .catch((error) => {
+              console.error("Error posting comment:", error);
+              showToast("Error", "Error al enviar el comentario", "error");
+            });
+        });
+
+      function showToast(title, message, type) {
+        toastr[type](message, title);
+      }
+
+      function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+      }
+    });
+
+    $("#carousel-example-generic").carousel({
+      interval: false,
+    });
+
+    $(document).ready(function () {
+      // Funciones para simular clic en los botones del carrusel
+      function simulateNextClick() {
+        document
+          .querySelector("#carousel-example-generic .right.carousel-control")
+          .click();
+      }
+
+      function simulatePrevClick() {
+        document
+          .querySelector("#carousel-example-generic .left.carousel-control")
+          .click();
+      }
+
+      // Variables para controlar el desplazamiento táctil
+      let touchStartY = 0;
+      let touchEndY = 0;
+      let isScrollingCarousel = false;
+
+      // Evento para la rueda del ratón en el carrusel
+      $("#carousel-example-generic").on("wheel", function (event) {
+        isScrollingCarousel = true;
+        if (event.originalEvent.deltaY > 0) {
+          simulateNextClick();
+        } else {
+          simulatePrevClick();
+        }
+      });
+
+      // Evento para el inicio del toque en el carrusel
+      $("#carousel-example-generic").on("touchstart", function (event) {
+        isScrollingCarousel = true;
+        touchStartY = event.originalEvent.touches[0].clientY;
+      });
+
+      // Evento para el final del toque en el carrusel
+      $("#carousel-example-generic").on("touchend", function (event) {
+        touchEndY = event.originalEvent.changedTouches[0].clientY;
+        handleTouchScroll();
+      });
+
+      // Función para manejar el desplazamiento táctil en el carrusel
+      function handleTouchScroll() {
+        if (isScrollingCarousel) {
+          if (touchStartY - touchEndY > 50) {
+            simulateNextClick();
+          } else if (touchEndY - touchStartY > 50) {
+            simulatePrevClick();
+          }
+          isScrollingCarousel = false;
+        }
+      }
+
+      function updateLikes(imageId, likes, user) {
+        $(`#like-icon-${imageId}`).siblings("p").find("span").text(likes);
+        const likesText =
+          likes > 1
+            ? `A ${user || "Alguien"} y ${
+                likes - 1
+              } personas más les gusta esto`
+            : likes === 1
+            ? `A ${user || "Alguien"} le gusta esto`
+            : "Nadie aún le ha dado like a esto.";
+      }
+
+      // Escuchar el evento de nuevo comentario
+      socket.on("new_comment", (data) => {
+        console.log("New comment received:", data);
+        appendCommentToCanvas(
+          data.comment.userName,
+          data.comment.text,
+          data.comment.avatar,
+          data.imageId
+        );
+        updateLikeInfo(data.imageId); // Actualizar la información de likes y comentarios
+      });
+
+      socket.on("new_like", (data) => {
+        updateLikes(data.imageId, data.likes, data.user);
+        updateLikeInfo(data.imageId); // Actualizar la información de likes y comentarios
+      });
+
+      function appendCommentToCanvas(userName, text, avatar, imageId) {
+        if (imageId === $("#comments-list").attr("data-image-id")) {
+          const commentElement = `
+                <li>
+                    <div class="comment-main-level">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="comment-avatar"><img src="${avatar}" alt="Avatar"></div>
+                            </div>
+                            <div class="col-10">
+                                <div class="comment-box">
+                                    <div class="comment-head">
+                                        <h6 class="comment-name"><a href="#">${userName}</a></h6>
+                                        <span>Justo ahora</span>
+                                    </div>
+                                    <div class="comment-content">
+                                        ${text}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            `;
+          $("#comments-list").prepend(commentElement); // Agrega el comentario al principio de la lista
+        }
+      }
+    });
+
+    function setViewportHeight() {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    }
+
+    // Ejecutar al cargar la página
+    setViewportHeight();
+
+    // Ejecutar al redimensionar la ventana
+    window.addEventListener("resize", setViewportHeight);
+
+    function updateLikeInfo(imageId) {
+      fetch("/uploads-galery")
+        .then((response) => response.json())
+        .then((data) => {
+          const imageData = data.find((img) => img.imageId === imageId);
+          const { likes, randomLikeUser } = imageData;
+          const likesText =
+            likes > 1
+              ? `A ${randomLikeUser || "Alguien"} y ${
+                  likes - 1
+                } personas más les gusta esto`
+              : likes === 1
+              ? `A ${randomLikeUser || "Alguien"} le gusta esto`
+              : "Nadie aún le ha dado like a esto.";
+          $("#offcanvasBottom").find(".likes-info").html(likesText);
+
+          // Actualiza los badges de likes y comentarios
+          $(`#like-icon-${escapeCSSSelectorId(imageId)}`)
+            .siblings("p")
+            .find("span")
+            .text(likes);
+          $(
+            `.videoFooter__stat_comment[data-image-id="${escapeCSSSelectorId(
+              imageId
+            )}"]`
+          )
+            .find("span.badge")
+            .text(imageData.comments.length);
+        })
+        .catch((error) =>
+          console.error("Error al actualizar la información de likes:", error)
+        );
+    }
+
+    // Función para descargar la imagen
+    function downloadImage(imageId) {
+      console.log("Descargando imagen con ID:", imageId);
+
+      // Encuentra la URL de la imagen en imageDataStore
+      const imageData = imageDataStore[imageId];
+      if (!imageData) {
+        console.error("No se encontró la imagen:", imageId);
+        return;
+      }
+
+      const imageUrl = imageData.imageUrl;
+      const imageName = imageId + ".jpg"; // Puedes cambiar la extensión según el tipo de imagen
+
+      // Mostrar notificación de descarga en curso
+      Swal.fire({
+        title: "Descargando imagen...",
+        position: "bottom",
+        toast: true,
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading();
+
+          // Crear un enlace temporal para la descarga
+          const link = document.createElement("a");
+          link.href = imageUrl;
+          link.download = imageName;
+
+          // Descargar la imagen
+          link.click();
+
+          // Cerrar la notificación después de un corto período
+          setTimeout(() => {
+            Swal.close();
+            Swal.fire({
+              title: "Descarga completada!",
+              position: "bottom",
+              toast: true,
+              showConfirmButton: false,
+              timer: 2000,
+              icon: "success",
+            });
+          }, 2000); // Ajusta el tiempo según sea necesario
+        },
+      });
+    }
+
+    // Añadir el evento de clic para descargar imagen
+    $(document).ready(function () {
+      // Asegúrate de que el evento de clic se registre solo una vez
+      $(document)
+        .off("click", ".videoFooter__stat_download")
+        .on("click", ".videoFooter__stat_download", function () {
+          const imageId = $(this).data("image-id");
+          console.log("Botón de descarga clickeado, ID de imagen:", imageId);
+          if (imageId) {
+            downloadImage(imageId);
+          } else {
+            console.error("No se encontró la imagen:", imageId);
+          }
+        });
+    });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const carousel = document.getElementById("carousel-example-generic");
+
+    carousel.addEventListener(
+      "touchstart",
+      function (event) {
+        touchStartX = event.changedTouches[0].screenX;
+      },
+      false
+    );
+
+    carousel.addEventListener(
+      "touchmove",
+      function (event) {
+        touchEndX = event.changedTouches[0].screenX;
+        // Prevenir el desplazamiento de la página solo dentro del carrusel
+        if (Math.abs(touchEndX - touchStartX) > 10) {
+          event.preventDefault();
+        }
+      },
+      { passive: false }
+    );
+
+    carousel.addEventListener(
+      "touchend",
+      function (event) {
+        handleGesture();
+      },
+      false
+    );
+
+    function handleGesture() {
+      if (touchEndX > touchStartX + 100) {
+        // Ajusta el umbral según tus necesidades
+        window.location.href = "/?backtoGalery=1";
+      }
+    }
+    function checkOrientation() {
+      if (window.innerWidth > window.innerHeight) {
+        document.getElementById("landscape-overlay").style.display = "block";
+        document.getElementById("content").style.display = "none";
+      } else {
+        document.getElementById("landscape-overlay").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      }
+    }
+
+    window.addEventListener("resize", checkOrientation);
+    window.addEventListener("load", checkOrientation);
+    window.addEventListener("orientationchange", checkOrientation);
+  </script>
+</html>
