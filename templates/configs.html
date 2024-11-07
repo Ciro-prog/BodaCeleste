@@ -117,8 +117,8 @@ function fetchConfig() {
             document.getElementById('iglesiaCoordX').value = data.iglesiaCoordX || '';
             document.getElementById('iglesiaCoordY').value = data.iglesiaCoordY || '';
             document.getElementById('titularCuenta').value = data.titularCuenta || '';
-            document.getElementById('cbu').value = data.cbu || '';
-            document.getElementById('alias').value = data.alias || '';
+            document.getElementById('cbu').value = data.cbu || '0000003100032441598646';
+            document.getElementById('alias').value = data.alias || 'chaconceleste.12';
             // Actualizar la imagen de fondo
             if (data.backgroundImage) {
                 document.getElementById('currentBackgroundImage').src =  data.backgroundImage;

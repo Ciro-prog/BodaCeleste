@@ -13,7 +13,7 @@ from pymongo import DESCENDING
 from PIL import Image, ExifTags
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/invitados"
+app.config["MONGO_URI"] = "mongodb://localhost:27017/celeste"
 app.config['SECRET_KEY'] = '6b9e7e5e7b24a2b912bb2352f4a91b4c64b8123c1b2af9b7caffad3a9dbb2a60'
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 mongo = PyMongo(app)
