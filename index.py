@@ -8,7 +8,7 @@ import threading
 import time
 import uuid
 import random
-from datetime import datetime
+from datetime import datetime   
 from pymongo import DESCENDING
 from PIL import Image, ExifTags
 
@@ -808,4 +808,4 @@ def currency_filter(value):
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000, debug=False)
+    socketio.run(app, host='0.0.0.0', port=7171, debug=False)
