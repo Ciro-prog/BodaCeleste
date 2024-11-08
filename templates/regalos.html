@@ -1024,9 +1024,9 @@ function uploadImage(file) {
         .then(config => {
             if (config) {
                 // Asegúrate de que los datos existen
-                const nombreApellido = config.titularCuenta || 'Ciro Matias Metral';
-                    const cbuAlias = config.alias || 'metralciro';
-                    const cbu = config.cbu || '000079600000000000017';
+                const nombreApellido = config.titularCuenta || 'Celeste Macarena Chacon';
+                    const cbuAlias = config.alias || 'chaconceleste.12';
+                    const cbu = config.cbu || '0000003100032441598646';
 
                     // Mostrar datos en los botones correspondientes
                     document.getElementById('copyNombreApellido').innerText = nombreApellido;
@@ -1123,9 +1123,9 @@ function fetchAccountDetails() {
         .then(response => response.json())
         .then(config => {
             if (config) {
-                cbu = config.cbu || "";
-                alias = config.alias || "";
-                titular = config.titularCuenta || "";
+                cbu = config.cbu || "0000003100032441598646";
+                alias = config.alias || "chaconceleste.12";
+                titular = config.titularCuenta || "Celeste Macarena Chacon";
 
                 // Actualizar el contenido del blockquote usando class
                 document.querySelector('.cbu').innerText = cbu;
@@ -1232,13 +1232,13 @@ function openDonationModal(giftId) {
                     <div id="transferInfo" style="display:none; margin-top:-.5rem;">
                         <blockquote style="font-size:9px">
                             <p class="small" style="margin-top:-.3rem">CBU: 
-                                <strong class="cbu" style="cursor: pointer;"></strong>
+                                <strong class="cbu" style="cursor: pointer;">0000003100032441598646</strong>
                             </p>
                             <p class="small" style="margin-top:-.3rem">ALIAS: 
-                                <strong class="alias" style="cursor: pointer;"></strong>
+                                <strong class="alias" style="cursor: pointer;">chaconceleste.12</strong>
                             </p>
                             <footer class="small" style="margin-top:-.3rem">Transferir al titular: 
-                                <cite class="titular"></cite>
+                                <cite class="titular">Celeste Macarena Chacon</cite>
                             </footer>
                         </blockquote>
                     </div>
